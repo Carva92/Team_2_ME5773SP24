@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+#
+# ===========================================================================================
+# This file provides the code to complete problem 4, on assignment 3, for the ME 5773 Course
+# This bash script executes the following:
+#   - Script is given an integer input <N>
+#   - Sleeps for <2N> seconds
+#   - outputs the following string: "Terminated a task that takes <2N> seconds"
+#
+#
+# Example of the intended execution are as follows:
+#  [c001: abc123]$ bash twice.sh 3
+#  Terminated a task that takes 6 seconds
+#
+# ============================================================================================
+#
+sleep 3
+
+echo "Terminated a task that takes 6 seconds"
