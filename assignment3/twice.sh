@@ -15,6 +15,13 @@
 #
 # ============================================================================================
 #
-sleep 3
+# Inputs are can be called by $ followed by their respective indexing (starting at 1)
+Input=$1
 
-echo "Terminated a task that takes 6 seconds"
+# In order to conduct numerical operations, the $ followed by double parenthases are required
+Time=$(($Input*2))
+
+sleep $Time
+
+echo "Terminated a task that takes $Time seconds"
+
