@@ -16,10 +16,10 @@
 #SBATCH -J Twice_Job
 #SBATCH -o outFile.%j.txt    # Name of 'stdout' output file.
 #SBATCH -e errFile.%j.txt    # Name of 'stderr' error file.
-#SBATCH -p amdonly          # Partition
-#SBATCH -N 1                 # Total number of nodes to be requested.
+#SBATCH -p compute2          # Partition
+#SBATCH -N 2                 # Total number of nodes to be requested.
 #SBATCH -n 4                 # Total number of tasks to be requested.
-#SBATCH -c 8                # Number of threads used by each task.
+#SBATCH -c 40                # Number of threads used by each task.
 #SBATCH -t 00:10:00          # Maximum estimated run time (dd-hh:mm:ss)
 #SBATCH --mail-type=ALL      # Mail events to notify (END, FAIL, ALL).
 #SBATCH --mail-user julian.carvajal@my.utsa.edu # Put your utsa-email here.
