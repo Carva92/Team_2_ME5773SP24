@@ -1,0 +1,11 @@
+JobID             State    Elapsed   NNodes      NCPUS        NodeList  Partition 
+------------ ---------- ---------- -------- ---------- --------------- ---------- 
+349566        COMPLETED   00:00:50        2        160      c[109-110]   compute2 
+349566.batch  COMPLETED   00:00:50        1         80            c109            
+349566.exte+  COMPLETED   00:00:50        2        160      c[109-110]            
+349566.0      COMPLETED   00:00:07        2        160      c[109-110]            
+349566.1      COMPLETED   00:00:10        2        160      c[109-110]            
+349566.2      COMPLETED   00:00:12        2        160      c[109-110]            
+349566.3      COMPLETED   00:00:04        2        160      c[109-110]            
+349566.4      COMPLETED   00:00:02        2        160      c[109-110]            
+349566.5      COMPLETED   00:00:15        2        160      c[109-110]            
