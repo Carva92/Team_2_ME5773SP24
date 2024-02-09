@@ -28,12 +28,12 @@
 # start time
 start_time=$(date +%s)
 
-srun bash twice.sh 5 &
-srun bash twice.sh 2 &
-srun bash twice.sh 7 &
-srun bash twice.sh 6 &
-srun bash twice.sh 1 &
-srun bash twice.sh 3 &
+srun --exclusive -N 1 -n 1 -c $SLURM_CPUS_PER_TASK bash twice.sh 5 &
+srun --exclusive -N 1 -n 1 -c $SLURM_CPUS_PER_TASK bash twice.sh 2 &
+srun --exclusive -N 1 -n 1 -c $SLURM_CPUS_PER_TASK bash twice.sh 7 &
+srun --exclusive -N 1 -n 1 -c $SLURM_CPUS_PER_TASK bash twice.sh 6 &
+srun --exclusive -N 1 -n 1 -c $SLURM_CPUS_PER_TASK bash twice.sh 1 &
+srun --exclusive -N 1 -n 1 -c $SLURM_CPUS_PER_TASK bash twice.sh 3 &
 
 # Wait for all background jobs to finish
 wait

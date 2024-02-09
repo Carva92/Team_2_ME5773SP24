@@ -1,0 +1,11 @@
+JobID             State    Elapsed   NNodes      NCPUS        NodeList  Partition 
+------------ ---------- ---------- -------- ---------- --------------- ---------- 
+349887        COMPLETED   00:00:14        1         32            c120    amdonly 
+349887.batch  COMPLETED   00:00:14        1         32            c120            
+349887.exte+  COMPLETED   00:00:14        1         32            c120            
+349887.0      COMPLETED   00:00:14        1          8            c120            
+349887.1      COMPLETED   00:00:12        1          8            c120            
+349887.2      COMPLETED   00:00:10        1          8            c120            
+349887.3      COMPLETED   00:00:02        1          8            c120            
+349887.4      COMPLETED   00:00:06        1          8            c120            
+349887.5      COMPLETED   00:00:04        1          8            c120            
