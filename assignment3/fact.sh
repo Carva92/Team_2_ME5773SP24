@@ -25,3 +25,5 @@ for ((i=1; i<=N; i++)); do
     echo "$i! = $(factorial $i)"
 done
 
+
+#(OpenA,2024)

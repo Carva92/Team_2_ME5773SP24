@@ -1,0 +1,26 @@
+References 
+OpenAI. (2024). ChatGPT (3.5) [Large language model]. https://chat.openai.com
+Appendix A
+Chat GPT code for Fact.sh
+Question asked: write me a bash script that Given an input number <N>, it outputs all factorials from 1 to N each new line.
+Chat GPT response:
+ #!/bin/bash
+# Function to calculate factorial
+factorial() {
+    if [ $1 -eq 0 ] || [ $1 -eq 1 ]; then
+        echo 1
+    else
+        echo $(( $1 * $(factorial $(( $1 - 1 ))) ))
+    fi
+}
+# Main script
+echo "Enter a number (N):"
+read N
+if ! [[ "$N" =~ ^[0-9]+$ ]]; then
+    echo "Error: Please enter a valid number."
+    exit 1
+fi
+echo "Factorials from 1 to $N:"
+for ((i=1; i<=N; i++)); do
+    echo "$i factorial = $(factorial $i)"
+done
