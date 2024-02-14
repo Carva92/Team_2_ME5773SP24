@@ -8,16 +8,34 @@ import numpy as np
 N = 10**9
 deltax = 2/N
 
-# Using a for loop
+#starting section 3.2
+
+#  start time for F1 time
 start_time = time.time()
+
+#creating varible F1 with value of zero
 F1 = 0.0
+
+#for loop through all 1 billion values
 for i in range(N):
-    x_i = (2 * i / N) - 1
-    f_xi = math.sqrt(4 - 4 * x_i**2)
-    F1 += f_xi * deltax
-elapsed_time_for_loop = time.time() - start_time
-print(f"{elapsed_time_for_loop:.6f}")
-print(f"{F1:.16f}")
+    
+    #calculate value Xi
+
+    Xi = ((deltax * i) - 1)
+    FXi = math.sqrt(4 - (4 * (Xi**2)))
+    F1 = F1 + (FXi * deltax)
+
+# end for
+
+# evaluate calculation time for F1
+F1_time = time.time() - start_time
+
+print("The time to compute F1 using a for loop is : ", end="") 
+print('%.6f' % F1_time) 
+
+print("F1 value using a for loop is : ", end="") 
+print('%.16f' % F1)
+
 
 # Using numpy's vectorized functions
 start_time = time.time()
