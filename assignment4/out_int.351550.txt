@@ -1,0 +1,41 @@
+Starting job_int_study.slurm
+Running with OMP_NUM_THREADS=1 and NUMEXPR_NUM_THREADS=1
+The time to compute F1 using a for loop is : 358.375751
+F1 value calculated using a for loop : 3.1415926535810987
+
+The time to compute F2 using numpy vectorized functions is : 15.571874
+F2 value calculated using numpy vectorized functions : 3.1415926535896976
+
+The time to compute F3 using numexpr evaluations is : 13.190033
+F3 value calculated using numexpr evaluations : 3.1415926535953167
+
+Running with OMP_NUM_THREADS=2 and NUMEXPR_NUM_THREADS=2
+The time to compute F1 using a for loop is : 348.749534
+F1 value calculated using a for loop : 3.1415926535810987
+
+The time to compute F2 using numpy vectorized functions is : 15.549371
+F2 value calculated using numpy vectorized functions : 3.1415926535896976
+
+The time to compute F3 using numexpr evaluations is : 8.697770
+F3 value calculated using numexpr evaluations : 3.1415926535953167
+
+Running with OMP_NUM_THREADS=4 and NUMEXPR_NUM_THREADS=4
+The time to compute F1 using a for loop is : 360.318715
+F1 value calculated using a for loop : 3.1415926535810987
+
+The time to compute F2 using numpy vectorized functions is : 15.671035
+F2 value calculated using numpy vectorized functions : 3.1415926535896976
+
+The time to compute F3 using numexpr evaluations is : 6.545855
+F3 value calculated using numexpr evaluations : 3.1415926535953167
+
+Running with OMP_NUM_THREADS=8 and NUMEXPR_NUM_THREADS=8
+The time to compute F1 using a for loop is : 369.462920
+F1 value calculated using a for loop : 3.1415926535810987
+
+The time to compute F2 using numpy vectorized functions is : 15.607931
+F2 value calculated using numpy vectorized functions : 3.1415926535896976
+
+The time to compute F3 using numexpr evaluations is : 5.107798
+F3 value calculated using numexpr evaluations : 3.1415926535953167
+

@@ -6,9 +6,9 @@
 #          Roberto Enriquez Vargas
 #
 # ======================================================================
-#SBATCH -J linalg_study
-#SBATCH -o outFile.%j.txt    # Name of 'stdout' output file.
-#SBATCH -e errFile.%j.txt    # Name of 'stderr' error file.
+#SBATCH -J int_study
+#SBATCH -o out_int.%j.txt    # Name of 'stdout' output file.
+#SBATCH -e err_int.%j.txt    # Name of 'stderr' error file.
 #SBATCH -p compute1          # Partition
 #SBATCH -N 1                 # Total number of nodes to be requested.
 #SBATCH -n 1                 # Total number of tasks to be requested.
