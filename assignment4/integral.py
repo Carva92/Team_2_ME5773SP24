@@ -33,9 +33,9 @@ F1_time = time.time() - start_time
 print("The time to compute F1 using a for loop is : ", end="") 
 print('%.6f' % F1_time) 
 
-print("F1 value using a for loop is : ", end="") 
+print("F1 value calculated using a for loop : ", end="") 
 print('%.16f' % F1)
-
+print()
 
 # Using numpy's vectorized functions
 start_time = time.time()
@@ -44,9 +44,9 @@ x_vec = (2 * i_vec / N) - 1
 F_vec = np.sqrt(4 - 4 * x_vec**2)
 F2 = np.sum(F_vec) * deltax
 elapsed_time_numpy = time.time() - start_time
-print(f"{elapsed_time_numpy:.6f}")
-print(f"{F2:.16f}")
-
+print(f"The time to compute F2 using numpy vectorized functions is : {elapsed_time_numpy:.6f}")
+print(f"F2 value calculated using numpy vectorized functions : {F2:.16f}")
+print()
 # Using numexpr evaluations
 start_time = time.time()
 i_vec = np.arange(N)
@@ -54,5 +54,6 @@ x_vec = numexpr.evaluate('(2 * i_vec / N) - 1')
 F_vec = numexpr.evaluate('sqrt(4 - 4 * x_vec**2)')
 F3 = numexpr.evaluate('sum(F_vec)') * deltax
 elapsed_time_numexpr = time.time() - start_time
-print(f"{elapsed_time_numexpr:.6f}")
-print(f"{F3:.16f}")
+print(f"The time to compute F3 using numexpr evaluations is : {elapsed_time_numexpr:.6f}")
+print(f"F3 value calculated using numexpr evaluations : {F3:.16f}")
+print()
