@@ -70,7 +70,7 @@ ts_E = time.time()
 E_mat = ds_E[...]           # Loading E matrix
 te_E = time.time()
 
-print(f"Time to open all h5py files: {te_E-ts_A} seconds")
+print(f"Time to open h5py databases: {te_E-ts_A} seconds")
 print(f"\tTime to open A matrix from h5py file: {te_A-ts_A} seconds")
 print(f"\tTime to open B matrix from h5py file: {te_B-ts_B} seconds")
 print(f"\tTime to open C matrix from h5py file: {te_C-ts_C} seconds")
