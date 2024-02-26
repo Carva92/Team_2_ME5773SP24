@@ -1,0 +1,28 @@
+Time to generate A.csv: 3.07254958152771 seconds
+Time to generate A.npy: 0.14608359336853027 seconds
+Time to generate B.csv: 3.1581995487213135 seconds
+Time to generate B.npy: 0.015682220458984375 seconds
+Time to generate C.csv: 11.798393487930298 seconds
+Time to generate C.npy: 0.13498711585998535 seconds
+Time to generate D.csv: 0.0022125244140625 seconds
+Time to generate D.npy: 0.0012826919555664062 seconds
+Time to generate E.csv: 0.0016071796417236328 seconds
+Time to generate E.npy: 0.000997781753540039 seconds
+Time to create dataset A in HDF5 file: 1.3992483615875244 seconds
+Time to create dataset B in HDF5 file: 0.7362339496612549 seconds
+Time to create dataset D in HDF5 file: 0.001901865005493164 seconds
+Time to create dataset C in HDF5 file: 0.7123973369598389 seconds
+Time to create dataset E in HDF5 file: 0.0002474784851074219 seconds
+Total time to create HDF5 file: 2.9426493644714355 seconds
+
+A.csv = 48M
+A.npy = 191M
+B.csv = 96M
+B.npy = 24M
+C.csv = 597M
+C.npy = 191M
+D.csv = 500 Bytes
+D.npy = 328 Bytes
+E.csv = 56 Bytes
+E.npy = 144 Bytes
+matrix_db.hdf5 = 34M

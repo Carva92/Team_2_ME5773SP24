@@ -1,3 +1,7 @@
+# Homework 5
+
+
+# Import Libraries
 import time
 import numpy as np
 import h5py
