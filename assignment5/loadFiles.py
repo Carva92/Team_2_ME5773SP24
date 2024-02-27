@@ -1,3 +1,9 @@
+# Homework #5
+
+# Code By: Julian Carvajal Rico
+#          James Platt Standard
+#          Roberto Enriquez Vargas
+
 # Import libraries time, numpy, and h5py
 import time
 import numpy as np
@@ -15,6 +21,7 @@ D_csv = np.loadtxt("D.csv", delimiter=',', dtype='int16')    # 2-byte integer
 et_csv_D = time.time()
 E_csv = np.loadtxt("E.csv", delimiter=',', dtype='float32')  # 4-byte float
 et_csv_E = time.time()
+
 print(f"Time to load all csv files: {et_csv_E-st_csv_A} seconds")
 print(f"\tTime to load A.csv file: {et_csv_A-st_csv_A}")
 print(f"\tTime to load B.csv file: {et_csv_B-et_csv_A}")
@@ -34,6 +41,7 @@ D_npy = np.load('D.npy')
 et_npy_D = time.time()
 E_npy = np.load('E.npy')
 et_npy_E = time.time()
+
 print(f"Time to load all npy files: {et_npy_E-st_npy_A} seconds")
 print(f"\tTime to load A.npy file: {et_npy_A-st_npy_A} seconds")
 print(f"\tTime to load B.npy file: {et_npy_B-et_npy_A} seconds")
