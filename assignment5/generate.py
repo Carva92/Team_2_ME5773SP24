@@ -1,192 +1,110 @@
-# Homework 5
+#Homework5
 
 
-# Import Libraries
+# Code By: Julian Carvajal Rico
+#          James Platt Standard
+#          Roberto Enriquez Vargas
+
+
 import time
 import numpy as np
 import h5py
 
 
+# Functions for the creation of the corresponding Matrix
 
-#start of code
+def create_matrix_a():
+    return np.random.randint(2, 10, size=(5000, 5000), dtype=np.int64)
 
-#nxn size of A
+def create_matrix_b():
+    return np.random.randint(100, 128, size=(5000, 5000), dtype=np.int8)
 
-size_A = 5000
+def create_matrix_c():
+    return np.full((5000, 5000), 0.33333, dtype=np.float64)
 
-#nxn matrix between the values of 2 and 9, 10 is one above the largest integer to be drawn
+def create_matrix_d():
+    shape = (10, 10)
+    return np.linspace(1001, 1100, num=shape[0]*shape[1], dtype=np.int16).reshape(shape, order='F')
 
-A = np.random.randint(2,10,(size_A,size_A),dtype=np.int64)
+def create_matrix_e():
+    shape = (2, 2)
+    return np.linspace(350.0, 350.3, num=shape[0]*shape[1], dtype=np.float32).reshape(shape, order='C')
 
-#print matrix to check 
-#print(np.matrix(A))
+# Function to save each matrix into the corresponding format
 
-size_B = 5000
+def export_matrix(matrix, name, dtype):
+    start_time = time.time()
+    if dtype == 'int':
+        np.savetxt(f"{name}.csv", matrix, fmt='%d', delimiter=',')
+    elif dtype == 'float64':
+        np.savetxt(f"{name}.csv", matrix, fmt='%.18e', delimiter=',')
+    elif dtype == 'float32':
+        np.savetxt(f"{name}.csv", matrix, fmt='%.7e', delimiter=',')
+    print(f"Time to generate {name}.csv: {time.time() - start_time} seconds")
 
-#nxn matrix between the values of 100 and 127, 128 is one above the largest integer to be drawn
+    start_time = time.time()
+    np.save(f"{name}.npy", matrix)
+    print(f"Time to generate {name}.npy: {time.time() - start_time} seconds")
 
-B = np.random.randint(100,128,(size_B,size_B),dtype=np.int8)
+# Create a variable calling each function to create each Matrix in the corresponding format
 
-#print matrix to check
-#print(np.matrix(B))
+matrices = [
+    ('A', create_matrix_a(), 'int'),
+    ('B', create_matrix_b(), 'int'),
+    ('C', create_matrix_c(), 'float64'),
+    ('D', create_matrix_d(), 'int'),
+    ('E', create_matrix_e(), 'float32'),
+]
 
-#nxn size of C
+# Loop to save each Matrix
 
-size_C = 5000
+for name, matrix, dtype in matrices:
+    export_matrix(matrix, name, dtype)
 
-#nxn matrix with 0.33333 in all values
 
-C = np.full((size_C,size_C),0.33333,dtype=np.float64,order='C')
 
-#print matrix to check
-#print(np.matrix(C))
 
-#nxn matrix with values between 1001 and 1100 in Fortran order
 
-D = np.arange(1001,1101,dtype=np.int16).reshape((10,10), order='F')
+#start time for the entire operation of HDF5
 
-#print matrix to check
-#print(np.matrix(D))
+start_time = time.time()  
 
-#nxn matrix with values between 350.0 and 350.3 in C order
 
-E = np.arange(350.0,350.4,0.1,dtype=np.float32).reshape((2,2), order='C')
+# Create an HDF5 file
+with h5py.File('matrix_db.hdf5', 'w') as hdf:
 
-#print matrix to check
-#print(np.matrix(E))
+    # Create groups
+    integer_group = hdf.create_group('integer_group')
+    float_group = hdf.create_group('float_group')
 
+    # Add attribute to integer_group
+    integer_group.attrs['description'] = 'Matrices with integer values'
 
+    # Add matrices to integer_group with the specified configurations
+    # Matrix A
+    start_time_a = time.time()  # Record start time for matrix A
+    integer_group.create_dataset('A', data=matrices[0][1], chunks=(500, 500), compression='gzip')
+    print(f"Time to create dataset A in HDF5 file: {time.time() - start_time_a} seconds")
 
-#start time for time to save A to csv
-start_time_A_CSV = time.time()
+    # Matrix B
+    start_time_b = time.time()  # Record start time for matrix B
+    integer_group.create_dataset('B', data=matrices[1][1], chunks=(1000, 1000), compression='gzip')
+    print(f"Time to create dataset B in HDF5 file: {time.time() - start_time_b} seconds")
 
-#save file A.CSV
-np.savetxt('A.CSV',A, fmt='%d', delimiter=',')
+    # Matrix D
+    start_time_d = time.time()  # Record start time for matrix D
+    integer_group.create_dataset('D', data=matrices[3][1], compression='gzip')  # Default chunk size
+    print(f"Time to create dataset D in HDF5 file: {time.time() - start_time_d} seconds")
 
-# evaluate calculation time for A
-A_time_CSV = time.time() - start_time_A_CSV
+    # Add matrices to float_group with the specified configurations
+    # Matrix C
+    start_time_c = time.time()  # Record start time for matrix C
+    float_group.create_dataset('C', data=matrices[2][1], compression='gzip')  # Default chunk size
+    print(f"Time to create dataset C in HDF5 file: {time.time() - start_time_c} seconds")
 
-print("The time to create A.CSV is : ", end="")
-print('%.6f' % A_time_CSV)
+    # Matrix E
+    start_time_e = time.time()  # Record start time for matrix E
+    float_group.create_dataset('E', data=matrices[4][1])  # No compression for E
+    print(f"Time to create dataset E in HDF5 file: {time.time() - start_time_e} seconds")
 
-#start time for time to save B to CSV
-start_time_B_CSV = time.time()
-
-#save file B.CSV
-np.savetxt('B.CSV',B, fmt='%d', delimiter=',')
-
-# evaluate calculation time for B
-B_time_CSV = time.time() - start_time_B_CSV
-
-print("The time to create B.CSV is : ", end="")
-print('%.6f' % B_time_CSV)
-
-#start time for time to save C to CSV
-start_time_C_CSV = time.time()
-
-#save file C.CSV
-np.savetxt('C.CSV',C, fmt='%.18e', delimiter=',')
-
-# evaluate calculation time for C
-C_time_CSV = time.time() - start_time_C_CSV
-
-print("The time to create C.CSV is : ", end="")
-print('%.6f' % C_time_CSV)
-
-#start time for time to save D to CSV
-start_time_D_CSV = time.time()
-
-#save file D.CSV
-np.savetxt('D.CSV',D, fmt='%d', delimiter=',')
-
-# evaluate calculation time for D
-D_time_CSV = time.time() - start_time_D_CSV
-
-print("The time to create D.CSV is : ", end="")
-print('%.6f' % D_time_CSV)
-
-#start time for time to save E to CSV
-start_time_E_CSV = time.time()
-
-#save file E.CSV
-np.savetxt('E.CSV',E, fmt='%.7e', delimiter=',')
-
-# evaluate calculation time for E
-E_time_CSV = time.time() - start_time_E_CSV
-
-print("The time to create E.CSV is : ", end="")
-print('%.6f' % E_time_CSV)
-
-print()
-
-#start time for time to save A to .npy
-start_time_A_npy = time.time()
-
-#save file A.npy
-np.save('A.npy',A)
-
-# evaluate calculation time for A
-A_time_npy = time.time() - start_time_A_npy
-
-print("The time to create A.npy is : ", end="")
-print('%.6f' % A_time_npy)
-
-#start time for time to save B to .npy
-start_time_B_npy = time.time()
-
-#save file B.npy
-np.save('B.npy',B)
-
-# evaluate calculation time for B
-B_time_npy = time.time() - start_time_B_npy
-
-print("The time to create B.npy is : ", end="")
-print('%.6f' % B_time_npy)
-
-#start time for time to save C to .npy
-start_time_C_npy = time.time()
-
-#save file C.npy
-np.save('C.npy',C)
-
-# evaluate calculation time for C
-C_time_npy = time.time() - start_time_C_npy
-
-print("The time to create C.npy is : ", end="")
-print('%.6f' % C_time_npy)
-
-#start time for time to save D to .npy
-start_time_D_npy = time.time()
-
-#save file D.npy
-np.save('D.npy',D)
-
-# evaluate calculation time for D
-D_time_npy = time.time() - start_time_D_npy
-
-print("The time to create D.npy is : ", end="")
-print('%.6f' % D_time_npy)
-
-#start time for time to save E to .npy
-start_time_E_npy = time.time()
-
-#save file E.npy
-np.save('E.npy',E)
-
-# evaluate calculation time for E
-E_time_npy = time.time() - start_time_E_npy
-
-print("The time to create E.npy is : ", end="")
-print('%.6f' % E_time_npy)
-print()
-
-
-
-
-
-
-
-
-
-
-
+print(f"Total time to create HDF5 file: {time.time() - start_time} seconds")
