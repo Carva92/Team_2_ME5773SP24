@@ -6,7 +6,6 @@
 #SBATCH --partition=compute1
 #SBATCH --time=00:10:00
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=roberto.enriquezvargas@utsa.edu
 #SBATCH --ntasks=21
 #SBATCH --nodes=2
 
