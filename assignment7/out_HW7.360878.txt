@@ -1,0 +1,21 @@
+Starting HW7_MPI.slurm
+Master Received Integral Value 0.735756506760854 From Process 4 Percent Error 0.00% And Run Time 0.0010s
+Master Received Integral Value 0.7357588823428858 From Process 8 Percent Error 0.00% And Run Time 0.0010s
+Master Received Integral Value 0.7357588823428542 From Process 7 Percent Error 0.00% And Run Time 0.0009s
+Master Received Integral Value 0.7043259094830925 From Process 2 Percent Error 4.27% And Run Time 0.0008s
+Master Received Integral Value 0.7357588823240082 From Process 6 Percent Error 0.00% And Run Time 0.0010s
+Master Received Integral Value 0.7353621441608531 From Process 3 Percent Error 0.05% And Run Time 0.0010s
+Master Received Integral Value 0.0 From Process 1 Percent Error 100.00% And Run Time 0.0010s
+Master Received Integral Value 0.7357588823428846 From Process 18 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.735758882342885 From Process 19 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428838 From Process 10 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428842 From Process 12 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428846 From Process 11 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428833 From Process 15 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428842 From Process 13 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428843 From Process 17 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428847 From Process 16 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428852 From Process 14 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428854 From Process 9 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588823428851 From Process 20 Percent Error 0.00% And Run Time 0.0015s
+Master Received Integral Value 0.7357588740610974 From Process 5 Percent Error 0.00% And Run Time 0.0130s

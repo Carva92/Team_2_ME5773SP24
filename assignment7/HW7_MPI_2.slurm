@@ -23,4 +23,4 @@ module load anaconda3
 source activate hpc
 
 
-mpirun -n $SLURM_NTASKS python3 HW7_MPI.py
+mpirun -n $SLURM_NTASKS python3 HW7_MPI_2.py
