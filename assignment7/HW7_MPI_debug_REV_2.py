@@ -50,10 +50,6 @@ def compute_integral(n):
     gauleg(-1, 1, x, w, n)
     return np.sum(w * f(x))
 
-# def save_results(results, filename):
-#     with open(filename, 'w') as file:
-#         for result in results:
-#             file.write(f"{result['n']}, {result['integral']}, {result['percent_error']}, {result['run_time']}\n")
             
 def save_results(results, filename):
     with open(filename, 'w') as file:
