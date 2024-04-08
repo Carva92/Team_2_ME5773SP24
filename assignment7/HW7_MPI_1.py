@@ -2,6 +2,8 @@
 #          James Platt Standard
 #          Roberto Enriquez Vargas
 
+# In this firts code we assigned exacly 21 tasks to cover 1 master and 20 workers, in which each task is assigned to each worker.
+
 from mpi4py import MPI
 import time
 import numpy as np
@@ -50,11 +52,12 @@ def compute_integral(n):
     gauleg(-1, 1, x, w, n)
     return np.sum(w * f(x))
 
-            
+
+# Function to save the outputs into the desire file            
 def save_results(results, filename):
     with open(filename, 'w') as file:
         # Write the header
-        file.write("Quadrature no., Integral Value, Percent Error, Run Time (s)\n")
+        file.write("Quadrature no., Integral Value, Percent Error (%), Run Time (s)\n")
         # Write the data
         for result in results:
             file.write(f"{result['n']}, {result['Integral Value']}, {result['Percent Error']}%, {result['Run Time']}s\n")
@@ -89,7 +92,9 @@ if rank == 0:
         integral = comm.recv(source=i, tag=2)
         end_time = time.time()
 
+        # Compute run time
         run_time = end_time - start_time
+        # Compute percent error
         percent_error = abs((integral - exact_value) / exact_value) * 100
         print(f"Master Received Integral Value {integral} From Process {i} Percent Error {percent_error} And Run Time {run_time}")
         results.append({'n': i, 'Integral Value': integral, 'Percent Error': percent_error, 'Run Time': run_time})

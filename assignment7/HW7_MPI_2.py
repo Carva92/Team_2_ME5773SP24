@@ -2,6 +2,9 @@
 #          James Platt Standard
 #          Roberto Enriquez Vargas
 
+# This second approach tackle the issue when less tasks are asigned to the compute node but still 20 integrals must be solved, and in some cases when a worker
+# finished the task and is available it's going to take another one, so some workers will ended up solving more tasks than others.
+
 from mpi4py import MPI
 import time
 import numpy as np
@@ -50,6 +53,7 @@ def compute_integral(n):
     gauleg(-1, 1, x, w, n)
     return np.sum(w * f(x))
 
+# Function to save the outputs into the desire file
 def save_results(results, filename):
     with open(filename, 'w') as file:
         # Write the header
@@ -60,8 +64,7 @@ def save_results(results, filename):
 
 
 
-
-# Additional function to handle distributing the work
+# Additional function to handle distributing the work to the free workers when available
 def distribute_work(comm, size, num_integrations):
     for i in range(1, num_integrations + 1):
         worker = (i % (size - 1)) + 1
@@ -70,7 +73,8 @@ def distribute_work(comm, size, num_integrations):
     for i in range(1, size):
         comm.send(None, dest=i, tag=1)
 
-# Function to handle worker tasks
+
+# Function to handle each task for each worker
 def worker_task(comm, rank):
     while True:
         n = comm.recv(source=0, tag=1)
@@ -79,9 +83,10 @@ def worker_task(comm, rank):
         start_time = time.time()
         integral = compute_integral(n)
         run_time = time.time() - start_time
-        comm.send((integral, n, run_time), dest=0, tag=2)  # Send run time as well
+        comm.send((integral, n, run_time), dest=0, tag=2)  # Send run time
 
-# Function to collect results from workers
+
+# Function to collect results from all the workers to send it to the master
 def collect_results(comm, num_integrations):
     results = []
     for _ in range(num_integrations):
