@@ -1,6 +1,7 @@
 import numpy as np
 import time
 import os
+import numba
 from numba import jit, prange
 
 
@@ -66,7 +67,7 @@ if __name__ == '__main__':
     # Evaluate the CPU time and integration here.
 
     for num_threads in [1, 2, 4, 8, 16, 20]:
-        os.environ['NUMBA_NUM_THREADS'] = str(num_threads)
+        numba.set_num_threads(int(num_threads))
 
         # Dummy call to ensure JIT compilation
         integral_riemann(a, b, 1000)
