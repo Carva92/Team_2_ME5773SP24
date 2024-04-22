@@ -24,9 +24,9 @@ PROGRAM main_program
 
 
 
-  ! ! Uncomment lines 27-54 to check the behavior with sorted arrays.
+  ! Uncomment lines 27-54 to check the behavior with sorted arrays.
 
-  ! ! Use here these two cases to evaluate performance.
+  ! Use here these two cases to evaluate performance.
   ! print*, " -------------------------- "
   ! print*, "Testing on a sorted array"
 
