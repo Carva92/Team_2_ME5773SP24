@@ -45,7 +45,7 @@ PROGRAM main_program
    ! Idx must be the second to last elemetn.
    print*, "Index computed with linear search: ", idx , N2-1
    print*, "was the value found?: ", arr2(idx)==x
-   print*, "time to perform linear search:", t_start_linear-t_end_linear
+   print*, "time to perform linear search:", t_end_linear-t_start_linear
    ! Measure the CPU time of this binarysearch function.
    CALL CPU_TIME(t_start_binary) ! Start measuring time here
    idx = binarysearch(arr2,n,x)
