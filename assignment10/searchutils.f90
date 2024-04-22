@@ -1,5 +1,6 @@
 module searchutils
     implicit none
+    
 
 contains
 
@@ -9,7 +10,7 @@ contains
 ! Find idx such that arr(idx) == x
 !
 FUNCTION linearSearch(arr, n, x) RESULT(idx)
-
+ use omp_lib
  IMPLICIT NONE
 
  REAL(8) :: arr(n) ! Array to search
@@ -24,14 +25,19 @@ FUNCTION linearSearch(arr, n, x) RESULT(idx)
         !set idx to -1 in case element is not found.
     idx = -1 
 
+    !$omp parallel private(i)
+    !$omp do
     DO i = 1, n
         IF (arr(i) == x) THEN
-
+            !$omp critical
                 !update idx if element is found
             idx = i 
-            EXIT
+            !$omp end critical
+            ! EXIT
         END IF
     END DO
+    !$omp end do
+    !$omp end parallel
 
 
 

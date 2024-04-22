@@ -67,12 +67,12 @@ PROGRAM main_program
 
    x = arr2(N2/2-1) ! Value of interest: midle element -1.
    n = SIZE(arr2,1)
-
+   CALL CPU_TIME(t_start_linear) ! Start measuring time here
    idx = linearsearch(arr2,n,x)
-
+   CALL CPU_TIME(t_end_linear) 
    print*, "Index computed with linear search: ", idx
    print*, "was the value found?: ", arr2(idx)==x
-
+   print*, "time to perform linear search:", t_end_linear-t_start_linear
 CONTAINS
   
   ! Fill an array with sorted values.

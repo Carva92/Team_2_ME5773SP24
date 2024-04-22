@@ -1,6 +1,7 @@
 PROGRAM main_program
 
   USE searchutils
+  USE omp_lib
 
   IMPLICIT NONE
 
@@ -9,7 +10,7 @@ PROGRAM main_program
   INTEGER, PARAMETER :: N2 = 10000000
   REAL(8), dimension(10) :: arr_test=[1.d0,2.d0,4.d0,5.d0,6.d0,7.d0,9.d0,10.d0,11.d0,15.d0]
   REAL(8) :: arr2(N2)
-  REAL(8) :: x, t_start_linear, t_start_binary, t_end_linear, t_end_binary
+  REAL(8) :: x, t_start_linear, t_start_binary, t_end_linear, t_end_binary, t_start_unsorted, t_end_unsorted
   INTEGER :: idx, n
   
   
@@ -38,19 +39,19 @@ PROGRAM main_program
    n = SIZE(arr2,1)
 
    ! Measure the CPU time of this linearsearch function.
-   CALL CPU_TIME(t_start_linear) ! Start measuring time here
+   t_start_linear = omp_get_wtime() ! Start measuring time here
    idx = linearsearch(arr2,n,x)
    ! Complete the CPU TIME measrurement 
-   CALL CPU_TIME(t_end_linear) 
+   t_end_linear = omp_get_wtime()  
    ! Idx must be the second to last elemetn.
    print*, "Index computed with linear search: ", idx , N2-1
    print*, "was the value found?: ", arr2(idx)==x
    print*, "time to perform linear search:", t_end_linear-t_start_linear
    ! Measure the CPU time of this binarysearch function.
-   CALL CPU_TIME(t_start_binary) ! Start measuring time here
+   t_start_binary = omp_get_wtime() ! Start measuring time here
    idx = binarysearch(arr2,n,x)
    ! Complete the CPU TIME measrurement 
-   CALL CPU_TIME(t_end_binary)
+   t_end_binary = omp_get_wtime() ! End measuring time
    print*, "Index computed with binary search: ", idx, N2-1
    print*, "was the value found?: ", arr2(idx)==x
    print*, "time to perform binary search:", t_end_binary-t_start_binary
@@ -68,10 +69,13 @@ PROGRAM main_program
    x = arr2(N2/2-1) ! Value of interest: midle element -1.
    n = SIZE(arr2,1)
 
+   t_start_unsorted = omp_get_wtime()
    idx = linearsearch(arr2,n,x)
+   t_end_unsorted = omp_get_wtime()
 
    print*, "Index computed with linear search: ", idx
    print*, "was the value found?: ", arr2(idx)==x
+   print*, "time to perform linear search on unsorted array:", t_end_unsorted - t_start_unsorted
 
 CONTAINS
   

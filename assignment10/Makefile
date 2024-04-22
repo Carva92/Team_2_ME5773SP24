@@ -3,7 +3,7 @@ FC = ifort
 
 
 # Define the general flags.
-FCFLAGS = -O0 -L.
+FCFLAGS = -O0 -L. -qopenmp
 
 MODSRCS = searchutils.f90
 MAINSRC = main_program.f90
