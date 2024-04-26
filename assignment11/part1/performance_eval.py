@@ -40,7 +40,7 @@ start_time = time.time()
 
 #sorted_array = np.sort(array)
 
-idx = np.searchsorted(sorted_array,sorted_array[-1])
+idx = np.searchsorted(sorted_array,sorted_array[-2])
 print("index computed with numpy sorted search:", idx)
 
 numpy_time_sorted = time.time() - start_time
@@ -51,7 +51,7 @@ print()
 #numpy search
 start_time = time.time()
 
-idx = np.where(array == array[-1])
+idx = np.where(array == array[-2])
 print("index computed with numpy search:", idx)
 
 numpy_time_search = time.time() - start_time
