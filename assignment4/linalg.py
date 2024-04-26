@@ -33,6 +33,7 @@ print(f"Time elapsed to create K and f: {creation_time:.9f} sec")
 start_time = time.time()
 u = np.linalg.solve(K, f)
 
+
 # Measure and print the time elapsed for solving the system
 solution_time = time.time() - start_time
 print(f"Time elapsed to solve the system: {solution_time:.9f} sec")

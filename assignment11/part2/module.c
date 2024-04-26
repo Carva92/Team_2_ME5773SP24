@@ -3161,6 +3161,9 @@ static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_d_dc_d
 /* ObjectToMemviewSlice.proto */
 static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn_int64_t(PyObject *, int writable_flag);
 
+/* ObjectToMemviewSlice.proto */
+static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_double(PyObject *, int writable_flag);
+
 /* RealImag.proto */
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -3296,6 +3299,9 @@ static CYTHON_INLINE char __Pyx_PyInt_As_char(PyObject *);
 
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_char(char value);
+
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int64_t(int64_t value);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
@@ -3480,6 +3486,7 @@ static const char __pyx_k_step[] = "step";
 static const char __pyx_k_stop[] = "stop";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_uplo[] = "uplo";
+static const char __pyx_k_work[] = "work";
 static const char __pyx_k_ASCII[] = "ASCII";
 static const char __pyx_k_class[] = "__class__";
 static const char __pyx_k_count[] = "count";
@@ -3488,11 +3495,13 @@ static const char __pyx_k_error[] = "error";
 static const char __pyx_k_flags[] = "flags";
 static const char __pyx_k_index[] = "index";
 static const char __pyx_k_int64[] = "int64";
+static const char __pyx_k_lwork[] = "lwork";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_start[] = "start";
 static const char __pyx_k_zeros[] = "zeros";
+static const char __pyx_k_double[] = "double";
 static const char __pyx_k_enable[] = "enable";
 static const char __pyx_k_encode[] = "encode";
 static const char __pyx_k_format[] = "format";
@@ -3765,6 +3774,7 @@ typedef struct {
   PyObject *__pyx_n_s_count;
   PyObject *__pyx_n_s_dict;
   PyObject *__pyx_kp_u_disable;
+  PyObject *__pyx_n_s_double;
   PyObject *__pyx_n_s_dtype;
   PyObject *__pyx_n_s_dtype_is_object;
   PyObject *__pyx_kp_u_enable;
@@ -3792,6 +3802,7 @@ typedef struct {
   PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
   PyObject *__pyx_n_s_lda;
   PyObject *__pyx_n_s_ldb;
+  PyObject *__pyx_n_s_lwork;
   PyObject *__pyx_n_s_main;
   PyObject *__pyx_n_s_matrix_layout;
   PyObject *__pyx_n_s_memview;
@@ -3847,6 +3858,7 @@ typedef struct {
   PyObject *__pyx_n_s_update;
   PyObject *__pyx_n_s_uplo;
   PyObject *__pyx_n_s_version_info;
+  PyObject *__pyx_n_s_work;
   PyObject *__pyx_n_s_zeros;
   PyObject *__pyx_int_0;
   PyObject *__pyx_int_1;
@@ -3997,6 +4009,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_count);
   Py_CLEAR(clear_module_state->__pyx_n_s_dict);
   Py_CLEAR(clear_module_state->__pyx_kp_u_disable);
+  Py_CLEAR(clear_module_state->__pyx_n_s_double);
   Py_CLEAR(clear_module_state->__pyx_n_s_dtype);
   Py_CLEAR(clear_module_state->__pyx_n_s_dtype_is_object);
   Py_CLEAR(clear_module_state->__pyx_kp_u_enable);
@@ -4024,6 +4037,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_s_itemsize_0_for_cython_array);
   Py_CLEAR(clear_module_state->__pyx_n_s_lda);
   Py_CLEAR(clear_module_state->__pyx_n_s_ldb);
+  Py_CLEAR(clear_module_state->__pyx_n_s_lwork);
   Py_CLEAR(clear_module_state->__pyx_n_s_main);
   Py_CLEAR(clear_module_state->__pyx_n_s_matrix_layout);
   Py_CLEAR(clear_module_state->__pyx_n_s_memview);
@@ -4079,6 +4093,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_update);
   Py_CLEAR(clear_module_state->__pyx_n_s_uplo);
   Py_CLEAR(clear_module_state->__pyx_n_s_version_info);
+  Py_CLEAR(clear_module_state->__pyx_n_s_work);
   Py_CLEAR(clear_module_state->__pyx_n_s_zeros);
   Py_CLEAR(clear_module_state->__pyx_int_0);
   Py_CLEAR(clear_module_state->__pyx_int_1);
@@ -4207,6 +4222,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_count);
   Py_VISIT(traverse_module_state->__pyx_n_s_dict);
   Py_VISIT(traverse_module_state->__pyx_kp_u_disable);
+  Py_VISIT(traverse_module_state->__pyx_n_s_double);
   Py_VISIT(traverse_module_state->__pyx_n_s_dtype);
   Py_VISIT(traverse_module_state->__pyx_n_s_dtype_is_object);
   Py_VISIT(traverse_module_state->__pyx_kp_u_enable);
@@ -4234,6 +4250,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_s_itemsize_0_for_cython_array);
   Py_VISIT(traverse_module_state->__pyx_n_s_lda);
   Py_VISIT(traverse_module_state->__pyx_n_s_ldb);
+  Py_VISIT(traverse_module_state->__pyx_n_s_lwork);
   Py_VISIT(traverse_module_state->__pyx_n_s_main);
   Py_VISIT(traverse_module_state->__pyx_n_s_matrix_layout);
   Py_VISIT(traverse_module_state->__pyx_n_s_memview);
@@ -4289,6 +4306,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_update);
   Py_VISIT(traverse_module_state->__pyx_n_s_uplo);
   Py_VISIT(traverse_module_state->__pyx_n_s_version_info);
+  Py_VISIT(traverse_module_state->__pyx_n_s_work);
   Py_VISIT(traverse_module_state->__pyx_n_s_zeros);
   Py_VISIT(traverse_module_state->__pyx_int_0);
   Py_VISIT(traverse_module_state->__pyx_int_1);
@@ -4455,6 +4473,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_count __pyx_mstate_global->__pyx_n_s_count
 #define __pyx_n_s_dict __pyx_mstate_global->__pyx_n_s_dict
 #define __pyx_kp_u_disable __pyx_mstate_global->__pyx_kp_u_disable
+#define __pyx_n_s_double __pyx_mstate_global->__pyx_n_s_double
 #define __pyx_n_s_dtype __pyx_mstate_global->__pyx_n_s_dtype
 #define __pyx_n_s_dtype_is_object __pyx_mstate_global->__pyx_n_s_dtype_is_object
 #define __pyx_kp_u_enable __pyx_mstate_global->__pyx_kp_u_enable
@@ -4482,6 +4501,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_s_itemsize_0_for_cython_array __pyx_mstate_global->__pyx_kp_s_itemsize_0_for_cython_array
 #define __pyx_n_s_lda __pyx_mstate_global->__pyx_n_s_lda
 #define __pyx_n_s_ldb __pyx_mstate_global->__pyx_n_s_ldb
+#define __pyx_n_s_lwork __pyx_mstate_global->__pyx_n_s_lwork
 #define __pyx_n_s_main __pyx_mstate_global->__pyx_n_s_main
 #define __pyx_n_s_matrix_layout __pyx_mstate_global->__pyx_n_s_matrix_layout
 #define __pyx_n_s_memview __pyx_mstate_global->__pyx_n_s_memview
@@ -4537,6 +4557,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_update __pyx_mstate_global->__pyx_n_s_update
 #define __pyx_n_s_uplo __pyx_mstate_global->__pyx_n_s_uplo
 #define __pyx_n_s_version_info __pyx_mstate_global->__pyx_n_s_version_info
+#define __pyx_n_s_work __pyx_mstate_global->__pyx_n_s_work
 #define __pyx_n_s_zeros __pyx_mstate_global->__pyx_n_s_zeros
 #define __pyx_int_0 __pyx_mstate_global->__pyx_int_0
 #define __pyx_int_1 __pyx_mstate_global->__pyx_int_1
@@ -19754,7 +19775,7 @@ static PyObject *__pyx_pf_6module_mkl_solver(CYTHON_UNUSED PyObject *__pyx_self,
  * 
  * def mkl_solver_symm(double[:,::1] A, double[:,::1] B, char uplo='L'):             # <<<<<<<<<<<<<<
  *     """
- *     Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv.
+ *     Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv_work.
  */
 
 /* Python wrapper */
@@ -19765,7 +19786,7 @@ PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_6module_2mkl_solver_symm, "\n    Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv.\n\n    Parameters:\n    - A: double array (n x n) with the coefficient matrix (symmetric).\n    - B: double array (n x nrhs) with the right hand sides.\n\n    \n    Note: This function overwrites the values in A and B.\n\n    A is overwritten with the values of the LU decomposition.\n    B is overwriten with the values of the solution.\n    ");
+PyDoc_STRVAR(__pyx_doc_6module_2mkl_solver_symm, "\n    Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv_work.\n\n    Parameters:\n    - A: double array (n x n) with the coefficient matrix (symmetric).\n    - B: double array (n x nrhs) with the right hand sides.\n\n    Note: This function overwrites the values in A and B.\n\n    A is overwritten with the values of the LU decomposition.\n    B is overwritten with the values of the solution.\n    ");
 static PyMethodDef __pyx_mdef_6module_3mkl_solver_symm = {"mkl_solver_symm", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6module_3mkl_solver_symm, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6module_2mkl_solver_symm};
 static PyObject *__pyx_pw_6module_3mkl_solver_symm(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
@@ -19899,6 +19920,8 @@ static PyObject *__pyx_pf_6module_2mkl_solver_symm(CYTHON_UNUSED PyObject *__pyx
   int64_t __pyx_v_nrhs;
   int64_t __pyx_v_matrix_layout;
   __Pyx_memviewslice __pyx_v_ipiv_memview = { 0, 0, { 0 }, { 0 }, { 0 } };
+  __Pyx_memviewslice __pyx_v_work = { 0, 0, { 0 }, { 0 }, { 0 } };
+  int64_t __pyx_v_lwork;
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -19908,11 +19931,13 @@ static PyObject *__pyx_pf_6module_2mkl_solver_symm(CYTHON_UNUSED PyObject *__pyx
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   __Pyx_memviewslice __pyx_t_6 = { 0, 0, { 0 }, { 0 }, { 0 } };
-  Py_ssize_t __pyx_t_7;
+  __Pyx_memviewslice __pyx_t_7 = { 0, 0, { 0 }, { 0 }, { 0 } };
   Py_ssize_t __pyx_t_8;
   Py_ssize_t __pyx_t_9;
   Py_ssize_t __pyx_t_10;
   Py_ssize_t __pyx_t_11;
+  Py_ssize_t __pyx_t_12;
+  Py_ssize_t __pyx_t_13;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -19920,26 +19945,35 @@ static PyObject *__pyx_pf_6module_2mkl_solver_symm(CYTHON_UNUSED PyObject *__pyx
   __Pyx_RefNannySetupContext("mkl_solver_symm", 1);
   __Pyx_TraceCall("mkl_solver_symm", __pyx_f[1], 70, 0, __PYX_ERR(1, 70, __pyx_L1_error));
 
-  /* "module.pyx":87
+  /* "module.pyx":86
  *     cdef int64_t[:] ipiv_memview
+ *     cdef double[:] work
+ *     cdef int64_t lwork = 1             # <<<<<<<<<<<<<<
  * 
- *     matrix_layout = 101  # Row major layout             # <<<<<<<<<<<<<<
+ *     matrix_layout = 101  # Row major
+ */
+  __pyx_v_lwork = 1;
+
+  /* "module.pyx":88
+ *     cdef int64_t lwork = 1
+ * 
+ *     matrix_layout = 101  # Row major             # <<<<<<<<<<<<<<
  *     lda = A.shape[1]
  *     ldb = B.shape[1]
  */
   __pyx_v_matrix_layout = 0x65;
 
-  /* "module.pyx":88
+  /* "module.pyx":89
  * 
- *     matrix_layout = 101  # Row major layout
+ *     matrix_layout = 101  # Row major
  *     lda = A.shape[1]             # <<<<<<<<<<<<<<
  *     ldb = B.shape[1]
  *     n = A.shape[0]
  */
   __pyx_v_lda = (__pyx_v_A.shape[1]);
 
-  /* "module.pyx":89
- *     matrix_layout = 101  # Row major layout
+  /* "module.pyx":90
+ *     matrix_layout = 101  # Row major
  *     lda = A.shape[1]
  *     ldb = B.shape[1]             # <<<<<<<<<<<<<<
  *     n = A.shape[0]
@@ -19947,96 +19981,136 @@ static PyObject *__pyx_pf_6module_2mkl_solver_symm(CYTHON_UNUSED PyObject *__pyx
  */
   __pyx_v_ldb = (__pyx_v_B.shape[1]);
 
-  /* "module.pyx":90
+  /* "module.pyx":91
  *     lda = A.shape[1]
  *     ldb = B.shape[1]
  *     n = A.shape[0]             # <<<<<<<<<<<<<<
  *     nrhs = B.shape[1]
- *     ipiv_memview = np.zeros(A.shape[0], dtype=np.int64)
+ *     ipiv_memview = np.zeros(n, dtype=np.int64)
  */
   __pyx_v_n = (__pyx_v_A.shape[0]);
 
-  /* "module.pyx":91
+  /* "module.pyx":92
  *     ldb = B.shape[1]
  *     n = A.shape[0]
  *     nrhs = B.shape[1]             # <<<<<<<<<<<<<<
- *     ipiv_memview = np.zeros(A.shape[0], dtype=np.int64)
+ *     ipiv_memview = np.zeros(n, dtype=np.int64)
  * 
  */
   __pyx_v_nrhs = (__pyx_v_B.shape[1]);
 
-  /* "module.pyx":92
+  /* "module.pyx":93
  *     n = A.shape[0]
  *     nrhs = B.shape[1]
- *     ipiv_memview = np.zeros(A.shape[0], dtype=np.int64)             # <<<<<<<<<<<<<<
+ *     ipiv_memview = np.zeros(n, dtype=np.int64)             # <<<<<<<<<<<<<<
  * 
- *     LAPACKE_dsysv(matrix_layout, uplo, n, nrhs,
+ *     work = np.zeros(lwork, dtype=np.double)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyInt_FromSsize_t((__pyx_v_A.shape[0])); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int64_t(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1)) __PYX_ERR(1, 92, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1)) __PYX_ERR(1, 93, __pyx_L1_error);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_int64); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_int64); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(1, 92, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn_int64_t(__pyx_t_5, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn_int64_t(__pyx_t_5, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 93, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_ipiv_memview = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
   /* "module.pyx":95
+ *     ipiv_memview = np.zeros(n, dtype=np.int64)
  * 
- *     LAPACKE_dsysv(matrix_layout, uplo, n, nrhs,
- *                         &A[0,0], lda, &ipiv_memview[0],             # <<<<<<<<<<<<<<
- *                         &B[0,0], ldb)
+ *     work = np.zeros(lwork, dtype=np.double)             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
-  __pyx_t_7 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyInt_From_int64_t(__pyx_v_lwork); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_5);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5)) __PYX_ERR(1, 95, __pyx_L1_error);
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_double); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_v_work = __pyx_t_7;
+  __pyx_t_7.memview = NULL;
+  __pyx_t_7.data = NULL;
+
+  /* "module.pyx":99
+ * 
+ *     LAPACKE_dsysv_work(matrix_layout, uplo, n, nrhs,
+ *                        &A[0,0], lda, &ipiv_memview[0],             # <<<<<<<<<<<<<<
+ *                        &B[0,0], ldb, &work[0], lwork)
+ */
   __pyx_t_8 = 0;
   __pyx_t_9 = 0;
-
-  /* "module.pyx":96
- *     LAPACKE_dsysv(matrix_layout, uplo, n, nrhs,
- *                         &A[0,0], lda, &ipiv_memview[0],
- *                         &B[0,0], ldb)             # <<<<<<<<<<<<<<
- */
   __pyx_t_10 = 0;
-  __pyx_t_11 = 0;
 
-  /* "module.pyx":94
- *     ipiv_memview = np.zeros(A.shape[0], dtype=np.int64)
- * 
- *     LAPACKE_dsysv(matrix_layout, uplo, n, nrhs,             # <<<<<<<<<<<<<<
- *                         &A[0,0], lda, &ipiv_memview[0],
- *                         &B[0,0], ldb)
+  /* "module.pyx":100
+ *     LAPACKE_dsysv_work(matrix_layout, uplo, n, nrhs,
+ *                        &A[0,0], lda, &ipiv_memview[0],
+ *                        &B[0,0], ldb, &work[0], lwork)             # <<<<<<<<<<<<<<
  */
-  (void)(LAPACKE_dsysv(__pyx_v_matrix_layout, __pyx_v_uplo, __pyx_v_n, __pyx_v_nrhs, (&(*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_A.data + __pyx_t_7 * __pyx_v_A.strides[0]) )) + __pyx_t_8)) )))), __pyx_v_lda, (&(*((int64_t *) ( /* dim=0 */ (__pyx_v_ipiv_memview.data + __pyx_t_9 * __pyx_v_ipiv_memview.strides[0]) )))), (&(*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_B.data + __pyx_t_10 * __pyx_v_B.strides[0]) )) + __pyx_t_11)) )))), __pyx_v_ldb));
+  __pyx_t_11 = 0;
+  __pyx_t_12 = 0;
+  __pyx_t_13 = 0;
+
+  /* "module.pyx":98
+ * 
+ * 
+ *     LAPACKE_dsysv_work(matrix_layout, uplo, n, nrhs,             # <<<<<<<<<<<<<<
+ *                        &A[0,0], lda, &ipiv_memview[0],
+ *                        &B[0,0], ldb, &work[0], lwork)
+ */
+  (void)(LAPACKE_dsysv_work(__pyx_v_matrix_layout, __pyx_v_uplo, __pyx_v_n, __pyx_v_nrhs, (&(*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_A.data + __pyx_t_8 * __pyx_v_A.strides[0]) )) + __pyx_t_9)) )))), __pyx_v_lda, (&(*((int64_t *) ( /* dim=0 */ (__pyx_v_ipiv_memview.data + __pyx_t_10 * __pyx_v_ipiv_memview.strides[0]) )))), (&(*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_B.data + __pyx_t_11 * __pyx_v_B.strides[0]) )) + __pyx_t_12)) )))), __pyx_v_ldb, (&(*((double *) ( /* dim=0 */ (__pyx_v_work.data + __pyx_t_13 * __pyx_v_work.strides[0]) )))), __pyx_v_lwork));
 
   /* "module.pyx":70
  * # Start new mkl_solver_symm (For symetric matrices)
  * 
  * def mkl_solver_symm(double[:,::1] A, double[:,::1] B, char uplo='L'):             # <<<<<<<<<<<<<<
  *     """
- *     Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv.
+ *     Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv_work.
  */
 
   /* function exit code */
@@ -20049,10 +20123,12 @@ static PyObject *__pyx_pf_6module_2mkl_solver_symm(CYTHON_UNUSED PyObject *__pyx
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_6, 1);
+  __PYX_XCLEAR_MEMVIEW(&__pyx_t_7, 1);
   __Pyx_AddTraceback("module.mkl_solver_symm", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_ipiv_memview, 1);
+  __PYX_XCLEAR_MEMVIEW(&__pyx_v_work, 1);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_TraceReturn(__pyx_r, 0);
   __Pyx_RefNannyFinishContext();
@@ -21077,6 +21153,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
     {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
     {&__pyx_kp_u_disable, __pyx_k_disable, sizeof(__pyx_k_disable), 0, 1, 0, 0},
+    {&__pyx_n_s_double, __pyx_k_double, sizeof(__pyx_k_double), 0, 0, 1, 1},
     {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
     {&__pyx_n_s_dtype_is_object, __pyx_k_dtype_is_object, sizeof(__pyx_k_dtype_is_object), 0, 0, 1, 1},
     {&__pyx_kp_u_enable, __pyx_k_enable, sizeof(__pyx_k_enable), 0, 1, 0, 0},
@@ -21104,6 +21181,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
     {&__pyx_n_s_lda, __pyx_k_lda, sizeof(__pyx_k_lda), 0, 0, 1, 1},
     {&__pyx_n_s_ldb, __pyx_k_ldb, sizeof(__pyx_k_ldb), 0, 0, 1, 1},
+    {&__pyx_n_s_lwork, __pyx_k_lwork, sizeof(__pyx_k_lwork), 0, 0, 1, 1},
     {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
     {&__pyx_n_s_matrix_layout, __pyx_k_matrix_layout, sizeof(__pyx_k_matrix_layout), 0, 0, 1, 1},
     {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
@@ -21159,6 +21237,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
     {&__pyx_n_s_uplo, __pyx_k_uplo, sizeof(__pyx_k_uplo), 0, 0, 1, 1},
     {&__pyx_n_s_version_info, __pyx_k_version_info, sizeof(__pyx_k_version_info), 0, 0, 1, 1},
+    {&__pyx_n_s_work, __pyx_k_work, sizeof(__pyx_k_work), 0, 0, 1, 1},
     {&__pyx_n_s_zeros, __pyx_k_zeros, sizeof(__pyx_k_zeros), 0, 0, 1, 1},
     {0, 0, 0, 0, 0, 0, 0}
   };
@@ -21363,12 +21442,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * def mkl_solver_symm(double[:,::1] A, double[:,::1] B, char uplo='L'):             # <<<<<<<<<<<<<<
  *     """
- *     Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv.
+ *     Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv_work.
  */
-  __pyx_tuple__25 = PyTuple_Pack(9, __pyx_n_s_A, __pyx_n_s_B, __pyx_n_s_uplo, __pyx_n_s_lda, __pyx_n_s_ldb, __pyx_n_s_n, __pyx_n_s_nrhs, __pyx_n_s_matrix_layout, __pyx_n_s_ipiv_memview); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(1, 70, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(11, __pyx_n_s_A, __pyx_n_s_B, __pyx_n_s_uplo, __pyx_n_s_lda, __pyx_n_s_ldb, __pyx_n_s_n, __pyx_n_s_nrhs, __pyx_n_s_matrix_layout, __pyx_n_s_ipiv_memview, __pyx_n_s_work, __pyx_n_s_lwork); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(1, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_module_pyx, __pyx_n_s_mkl_solver_symm, 70, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(1, 70, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_module_pyx, __pyx_n_s_mkl_solver_symm, 70, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(1, 70, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -22507,7 +22586,7 @@ if (!__Pyx_RefNanny) {
  * 
  * def mkl_solver_symm(double[:,::1] A, double[:,::1] B, char uplo='L'):             # <<<<<<<<<<<<<<
  *     """
- *     Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv.
+ *     Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv_work.
  */
   __pyx_t_7 = __Pyx_PyInt_From_char(((char)'L')); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
@@ -28198,6 +28277,29 @@ __pyx_fail:
     return result;
 }
 
+/* ObjectToMemviewSlice */
+  static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_double(PyObject *obj, int writable_flag) {
+    __Pyx_memviewslice result = { 0, 0, { 0 }, { 0 }, { 0 } };
+    __Pyx_BufFmt_StackElem stack[1];
+    int axes_specs[] = { (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED) };
+    int retcode;
+    if (obj == Py_None) {
+        result.memview = (struct __pyx_memoryview_obj *) Py_None;
+        return result;
+    }
+    retcode = __Pyx_ValidateAndInit_memviewslice(axes_specs, 0,
+                                                 PyBUF_RECORDS_RO | writable_flag, 1,
+                                                 &__Pyx_TypeInfo_double, stack,
+                                                 &result, obj);
+    if (unlikely(retcode == -1))
+        goto __pyx_fail;
+    return result;
+__pyx_fail:
+    result.memview = NULL;
+    result.data = NULL;
+    return result;
+}
+
 /* Declarations */
   #if CYTHON_CCOMPLEX && (1) && (!0 || __cplusplus)
   #ifdef __cplusplus
@@ -29023,6 +29125,70 @@ raise_neg_overflow:
         from_bytes = PyObject_GetAttrString((PyObject*)&PyLong_Type, "from_bytes");
         if (!from_bytes) return NULL;
         py_bytes = PyBytes_FromStringAndSize((char*)bytes, sizeof(char));
+        if (!py_bytes) goto limited_bad;
+        order_str = PyUnicode_FromString(little ? "little" : "big");
+        if (!order_str) goto limited_bad;
+        arg_tuple = PyTuple_Pack(2, py_bytes, order_str);
+        if (!arg_tuple) goto limited_bad;
+        if (!is_unsigned) {
+            kwds = PyDict_New();
+            if (!kwds) goto limited_bad;
+            if (PyDict_SetItemString(kwds, "signed", __Pyx_NewRef(Py_True))) goto limited_bad;
+        }
+        result = PyObject_Call(from_bytes, arg_tuple, kwds);
+        limited_bad:
+        Py_XDECREF(kwds);
+        Py_XDECREF(arg_tuple);
+        Py_XDECREF(order_str);
+        Py_XDECREF(py_bytes);
+        Py_XDECREF(from_bytes);
+        return result;
+#endif
+    }
+}
+
+/* CIntToPy */
+  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int64_t(int64_t value) {
+#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+#endif
+    const int64_t neg_one = (int64_t) -1, const_zero = (int64_t) 0;
+#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
+#pragma GCC diagnostic pop
+#endif
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(int64_t) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(int64_t) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(int64_t) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(int64_t) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(int64_t) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+#if !CYTHON_COMPILING_IN_LIMITED_API && PY_VERSION_HEX < 0x030d0000
+        return _PyLong_FromByteArray(bytes, sizeof(int64_t),
+                                     little, !is_unsigned);
+#else
+        PyObject *from_bytes, *result = NULL;
+        PyObject *py_bytes = NULL, *arg_tuple = NULL, *kwds = NULL, *order_str = NULL;
+        from_bytes = PyObject_GetAttrString((PyObject*)&PyLong_Type, "from_bytes");
+        if (!from_bytes) return NULL;
+        py_bytes = PyBytes_FromStringAndSize((char*)bytes, sizeof(int64_t));
         if (!py_bytes) goto limited_bad;
         order_str = PyUnicode_FromString(little ? "little" : "big");
         if (!order_str) goto limited_bad;

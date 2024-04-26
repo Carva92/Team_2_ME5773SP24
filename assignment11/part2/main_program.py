@@ -4,20 +4,24 @@ import time
 
 
 
+# Initialize dense matrix 
+N = 10000
 
-A =  np.array([[    -5.86,    3.99,    -5.93,     -2.82,    7.69, ],
-               [     3.99,    4.46,     2.58,      4.42,    4.61, ],
-               [    -5.93,    2.58,    -8.52,      8.57,    7.69, ],
-               [    -2.82,    4.42,     8.57,      3.72,    8.07, ],
-               [     7.69,    4.61,     7.69,      8.07,    9.83, ]])
+# Creating Matrix A of size N x N (K in assignment 4)
+A = np.zeros((N, N))
+for i in range(N):
+    A[i, i] = 2
+    if i > 0:
+        A[i, i - 1] = -1
+        A[i - 1, i] = -1
+A[N - 1, N - 1] = 1  # Adjust the last diagonal element
 
-b = np.array([[    1.32,  -6.33,  -8.77, ],
-              [    2.22,   1.69,  -8.33, ],
-              [    0.12,  -1.56,   9.54, ],
-              [   -6.41,  -9.49,   9.56, ],
-              [    6.33,  -3.67,   7.48, ]])
+A_lower = np.tril(A)
 
-
+# Creating vector b (f in assignment 4)
+b = np.zeros(N)
+b[N - 1] = 1 / N
+b = b.reshape(N, 1)
 
 
 
@@ -43,5 +47,25 @@ print('The Solution b of the system is: ')
 print(b)
 
 
-print('Time spent: {0:.6f} s'.format(t_end-t_start))
+print('Time spent Unsymmetric: {0:.6f} s'.format(t_end-t_start))
+
+b = np.zeros(N)
+b[N - 1] = 1 / N
+b = b.reshape(N, 1)
+
+t_start = time.time()
+res = md.mkl_solver_symm( A_lower,b )
+t_end = time.time()
+
+print('The Factor of A is:')
+
+print(A)
+
+print('The Solution b of the system is: ')
+
+print(b)
+
+
+print('Time spent Symmetric: {0:.6f} s'.format(t_end-t_start))
+
 

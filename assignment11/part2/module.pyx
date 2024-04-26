@@ -22,9 +22,9 @@ cdef extern from "mkl.h" nogil:
                           double* a, int64_t lda, int64_t* ipiv,
                           double* b, int64_t ldb )
 
-    int LAPACKE_dsysv(int matrix_layout, char uplo, int64_t n, int64_t nrhs,
-                          double* a, int64_t lda, int64_t* ipiv,
-                          double* b, int64_t ldb )
+    int LAPACKE_dsysv_work(int matrix_layout, char uplo, int64_t n, int64_t nrhs,
+                           double* a, int64_t lda, int64_t* ipiv,
+                           double* b, int64_t ldb, double* work, int64_t lwork)
 
 
 def mkl_solver(double[:,::1] A, double[:,::1] B):
@@ -69,28 +69,32 @@ def mkl_solver(double[:,::1] A, double[:,::1] B):
 
 def mkl_solver_symm(double[:,::1] A, double[:,::1] B, char uplo='L'):
     """
-    Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv.
+    Solve a symmetric matrix system of equations AX = B using MKL's LAPACKE_dsysv_work.
 
     Parameters:
     - A: double array (n x n) with the coefficient matrix (symmetric).
     - B: double array (n x nrhs) with the right hand sides.
 
-    
     Note: This function overwrites the values in A and B.
 
     A is overwritten with the values of the LU decomposition.
-    B is overwriten with the values of the solution.
+    B is overwritten with the values of the solution.
     """
     cdef int64_t lda, ldb, n, nrhs, matrix_layout
     cdef int64_t[:] ipiv_memview
+    cdef double[:] work  
+    cdef int64_t lwork = 1 
 
-    matrix_layout = 101  # Row major layout
+    matrix_layout = 101  # Row major
     lda = A.shape[1]
     ldb = B.shape[1]
     n = A.shape[0]
     nrhs = B.shape[1]
-    ipiv_memview = np.zeros(A.shape[0], dtype=np.int64)
+    ipiv_memview = np.zeros(n, dtype=np.int64)
 
-    LAPACKE_dsysv(matrix_layout, uplo, n, nrhs, 
-                        &A[0,0], lda, &ipiv_memview[0], 
-                        &B[0,0], ldb)
+    work = np.zeros(lwork, dtype=np.double)
+
+    
+    LAPACKE_dsysv_work(matrix_layout, uplo, n, nrhs,
+                       &A[0,0], lda, &ipiv_memview[0],
+                       &B[0,0], ldb, &work[0], lwork)
