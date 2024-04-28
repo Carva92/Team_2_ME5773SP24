@@ -38,9 +38,9 @@ t_start = time.time()
 res = md.mkl_solver( A,b )
 t_end = time.time()
 
-print('The Factor of A is:')
+#print('The Factor of A is:')
 
-print(A)
+#print(A)
 
 print('The Solution b of the system is: ')
 
@@ -57,9 +57,9 @@ t_start = time.time()
 res = md.mkl_solver_symm( A_lower,b )
 t_end = time.time()
 
-print('The Factor of A is:')
+#print('The Factor of A is:')
 
-print(A)
+#print(A)
 
 print('The Solution b of the system is: ')
 
